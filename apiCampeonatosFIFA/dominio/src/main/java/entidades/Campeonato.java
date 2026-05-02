@@ -11,6 +11,7 @@ public class Campeonato {
     @SequenceGenerator(name = "secuencia_campeonato", sequenceName = "secuencia_campeonato", allocationSize = 1)
     @Column(name = "id")
     private int id;
+    
     @Column(name = "campeonato", length = 100, unique = true)
     private String nombre;
     @Column(name = "año")

@@ -1,7 +1,7 @@
-import 'package:appcampeonatosfifa/vistas/campeonato.dart';
+import 'package:appcampeonatosfifa/vistas/campeonatovista.dart';
 import 'package:appcampeonatosfifa/vistas/inicio.dart';
 import 'package:appcampeonatosfifa/vistas/login.dart';
-import 'package:appcampeonatosfifa/vistas/seleccion.dart';
+import 'package:appcampeonatosfifa/vistas/seleccionvista.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
       routes:{
         "/login":(context)=>const Login(),
         "/inicio":(context)=>const Inicio(),
-        "/campeonatos":(context)=>const Campeonato(),
-        "/selecciones":(context)=>const Seleccion(),
+        "/campeonatos":(context)=>const CampeonatoVista(),
+        "/selecciones":(context)=>const SeleccionVista(),
       },
       initialRoute: "/login",
     );

@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:appcampeonatosfifa/configuracion/configuracionapi.dart';
+import 'package:appcampeonatosfifa/modelos/campeonato.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-class Campeonatoservicio {
-  final String urlBase = "http://10.0.2.2:8080/api/campeonatos";
+class CampeonatoServicio {
+  final String urlBase = "${ConfiguracionApi.urlBase}/campeonatos";
 
   final variablesApp = FlutterSecureStorage();
 
@@ -23,12 +25,18 @@ class Campeonatoservicio {
   Future<dynamic> getCampeonatos() async {
     final url = Uri.parse("$urlBase/listar");
     final encabezado = await _getEncabezado();
-    final respuesta = await http.get(url, headers: encabezado);
+    try {
+      final respuesta = await http.get(url, headers: encabezado);
 
-    print("Body: ${respuesta.body}");
-    if (respuesta.statusCode == 200) {
-      return jsonDecode(respuesta.body);
+      if (respuesta.statusCode == 200) {
+        final List<dynamic> cuerpoJson = jsonDecode(respuesta.body);
+        return Campeonato.desdeListaJson(cuerpoJson);
+      }
+      return [];
+    } catch (e) {
+      // Es buena idea capturar excepciones de red
+      print("Error en el servicio de campeonatos: $e");
+      return [];
     }
-    return null;
   }
 }
